@@ -1,5 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import "react-toastify/dist/ReactToastify.css";
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -13,6 +14,7 @@ function Layout({ children, title, description, keywords, author }) {
         <meta name="author" content={author} />
       </Helmet>
       <Header />
+
       <main style={{ height: "80vh" }}>{children}</main>
       <Footer />
     </div>
