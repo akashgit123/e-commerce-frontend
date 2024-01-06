@@ -14,3 +14,39 @@
   text-decoration: none;
   color: white;
 }
+
+/* Page not found */
+.pnf{
+  display: flex;
+  min-height: 65vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.pnf-title{
+  font-size: 100px;
+  font-weight: 700;
+}
+.pnf-heading{
+  font-weight: normal;
+}
+.pnf-btn{
+  color: black;
+  border: 1px solid black;
+  text-decoration: none;
+  padding: 2px;
+  margin-top: 10px;
+}
+.pnf-btn a{
+  text-decoration: none;
+}
+ 
+/* Contact page */
+.contactus{
+  margin: 0;
+  padding: 0;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
