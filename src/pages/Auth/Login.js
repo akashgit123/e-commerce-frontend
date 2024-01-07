@@ -3,10 +3,12 @@ import Layout from "../../components/layouts/Layout";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useAuth } from "../../context/auth";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [auth, setAuth] = useAuth();
 
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -21,6 +23,12 @@ function Login() {
       );
       if (response.data.success) {
         navigate("/");
+        setAuth({
+          ...auth,
+          user: response.data.user,
+          authToken: response.data.authToken,
+        });
+        localStorage.setItem("user", JSON.stringify(response.data));
         toast.success(response.data.message);
       } else {
         toast.error(response.data.message);

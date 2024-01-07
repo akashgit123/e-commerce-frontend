@@ -1,7 +1,23 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/auth";
+import { toast } from "react-toastify";
 
 function Header() {
+  const navigate = useNavigate();
+  const [auth, setAuth] = useAuth();
+
+  const handleLogout = () => {
+    setAuth({
+      ...auth,
+      user: null,
+      authToken: "",
+    });
+    localStorage.removeItem("user");
+    navigate("/login");
+    toast.success("Logout Successful");
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -39,16 +55,32 @@ function Header() {
                   🛒 Cart
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/signup">
-                  Signup
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/login">
-                  Login
-                </NavLink>
-              </li>
+              {auth.user ? (
+                <>
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link"
+                      to="/login"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </NavLink>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/signup">
+                      Signup
+                    </NavLink>
+                  </li>
+                  <li className="nav-item">
+                    <NavLink className="nav-link" to="/login">
+                      Login
+                    </NavLink>
+                  </li>
+                </>
+              )}
             </div>
           </div>
         </div>
