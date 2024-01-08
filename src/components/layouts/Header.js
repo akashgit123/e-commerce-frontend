@@ -57,15 +57,44 @@ function Header() {
               </li>
               {auth.user ? (
                 <>
-                  <li className="nav-item">
-                    <NavLink
-                      className="nav-link"
-                      to="/login"
-                      onClick={handleLogout}
-                    >
-                      Logout
-                    </NavLink>
-                  </li>
+                  <div
+                    className="collapse navbar-collapse"
+                    id="navbarNavDarkDropdown"
+                  >
+                    <ul className="navbar-nav">
+                      <li className="nav-item dropdown">
+                        <NavLink
+                          className="nav-link dropdown-toggle"
+                          to="#"
+                          id="navbarDarkDropdownMenuLink"
+                          role="button"
+                          data-bs-toggle="dropdown"
+                          aria-expanded="false"
+                        >
+                          {auth.user.name}
+                        </NavLink>
+                        <ul
+                          className="dropdown-menu dropdown-menu-dark"
+                          aria-labelledby="navbarDarkDropdownMenuLink"
+                        >
+                          <li>
+                            <NavLink className="dropdown-item" to="/dashboard">
+                              Dashboard
+                            </NavLink>
+                          </li>
+                          <li>
+                            <NavLink
+                              className="dropdown-item"
+                              to="/login"
+                              onClick={handleLogout}
+                            >
+                              Logout
+                            </NavLink>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
                 </>
               ) : (
                 <>
