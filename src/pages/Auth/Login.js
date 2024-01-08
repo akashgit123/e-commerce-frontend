@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Layout from "../../components/layouts/Layout";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useAuth } from "../../context/auth";
@@ -11,6 +11,7 @@ function Login() {
   const [auth, setAuth] = useAuth();
 
   const navigate = useNavigate();
+  const location = useLocation();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -22,7 +23,7 @@ function Login() {
         }
       );
       if (response.data.success) {
-        navigate("/");
+        navigate(location.state || "/");
         setAuth({
           ...auth,
           user: response.data.user,

@@ -8,6 +8,8 @@ import PageNotFound from "./pages/PageNotFound";
 import Signup from "./pages/Auth/Signup";
 import { ToastContainer } from "react-toastify";
 import Login from "./pages/Auth/Login";
+import Dashboard from "./pages/private/Dashboard";
+import PrivateRoute from "./components/routes/Private";
 
 function App() {
   return (
@@ -20,6 +22,9 @@ function App() {
         <Route path="/policy" element={<Policy />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/dashboard" element={<PrivateRoute />}>
+          <Route path="" element={<Dashboard />} />
+        </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </>
