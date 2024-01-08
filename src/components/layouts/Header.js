@@ -65,7 +65,6 @@ function Header() {
                       <li className="nav-item dropdown">
                         <NavLink
                           className="nav-link dropdown-toggle"
-                          to="#"
                           id="navbarDarkDropdownMenuLink"
                           role="button"
                           data-bs-toggle="dropdown"
@@ -78,7 +77,12 @@ function Header() {
                           aria-labelledby="navbarDarkDropdownMenuLink"
                         >
                           <li>
-                            <NavLink className="dropdown-item" to="/dashboard">
+                            <NavLink
+                              className="dropdown-item"
+                              to={`/dashboard/${
+                                auth.user?.role === 1 ? "admin" : "user"
+                              }`}
+                            >
                               Dashboard
                             </NavLink>
                           </li>
