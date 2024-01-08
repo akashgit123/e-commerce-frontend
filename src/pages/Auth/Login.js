@@ -61,7 +61,7 @@ function Login() {
               required
             />
           </div>
-          <div className="mb-3">
+          <div className="mb-1">
             <label htmlFor="password" className="form-label">
               Password
             </label>
@@ -77,9 +77,18 @@ function Login() {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            Login
-          </button>
+          <div className="d-flex flex-column  mb-3">
+            <p
+              onClick={() => {
+                navigate("/forgot-password");
+              }}
+            >
+              Forgot Password
+            </p>
+            <button type="submit" className="btn btn-primary">
+              Login
+            </button>
+          </div>
         </form>
       </div>
     </Layout>
