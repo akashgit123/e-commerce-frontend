@@ -1,20 +1,20 @@
 import React from "react";
 import Layout from "../../components/layouts/Layout";
-import UserMenu from "../../components/layouts/UserMenu";
+import AdminMenu from "../../components/layouts/AdminMenu";
 
-function Dashboard() {
+function CreateProduct() {
   return (
     <Layout>
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-3">
-            <UserMenu />
+            <AdminMenu />
           </div>
-          <div className="col-md-9">content</div>
+          <div className="col-md-9">CreateProduct</div>
         </div>
       </div>
     </Layout>
   );
 }
 
-export default Dashboard;
+export default CreateProduct;

@@ -1,8 +1,8 @@
 import React from "react";
-import Layout from "../../components/layouts/Layout";
 import UserMenu from "../../components/layouts/UserMenu";
+import Layout from "../../components/layouts/Layout";
 
-function Dashboard() {
+function Orders() {
   return (
     <Layout>
       <div className="container-fluid">
@@ -10,11 +10,11 @@ function Dashboard() {
           <div className="col-md-3">
             <UserMenu />
           </div>
-          <div className="col-md-9">content</div>
+          <div className="col-md-9">Orders</div>
         </div>
       </div>
     </Layout>
   );
 }
 
-export default Dashboard;
+export default Orders;
