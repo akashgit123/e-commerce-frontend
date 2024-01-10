@@ -3,11 +3,15 @@ import Layout from "../../components/layouts/Layout";
 import AdminMenu from "../../components/layouts/AdminMenu";
 import { toast } from "react-toastify";
 import axios from "axios";
-import NewCategory from "../../components/forms/NewCategory";
+import { Modal } from "antd";
+import CategoryForm from "../../components/forms/CategoryForm";
 
 function CreateCategory() {
   const [categories, setCategories] = useState([]);
   const [name, setName] = useState("");
+  const [updateName, setUpdateName] = useState("");
+  const [catData, setCatData] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const getAllCategory = async () => {
     try {
@@ -42,6 +46,43 @@ function CreateCategory() {
     }
   };
 
+  const handleUpdate = async (e) => {
+    try {
+      e.preventDefault();
+      const response = await axios.put(
+        `${process.env.REACT_APP_BACKEND_API}/api/v1/category/update-category/${catData._id}`,
+        {
+          name: updateName,
+        }
+      );
+      if (response.data.success) {
+        getAllCategory();
+        toast.success(response.data.message);
+        setCatData(null);
+        setUpdateName("");
+        setIsModalOpen(false);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something Went Wrong");
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(
+        `${process.env.REACT_APP_BACKEND_API}/api/v1/category/delete-category/${id}`
+      );
+      if (response.data.success) {
+        getAllCategory();
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something Went Wrong");
+    }
+  };
+
   useEffect(() => {
     getAllCategory();
     // eslint-disable-next-line
@@ -57,10 +98,11 @@ function CreateCategory() {
           <div className="col-md-9">
             <h3 className="m-2">Manage Category</h3>
             <hr />
-            <NewCategory
+            <CategoryForm
               handleSubmit={handleSubmit}
               setValue={setName}
               value={name}
+              button="ADD"
             />
             {categories.length === 0 ? (
               <h6>No category available</h6>
@@ -80,10 +122,25 @@ function CreateCategory() {
                           <tr>
                             <td key={cat._id}>{cat.name}</td>
                             <td>
-                              <button className="btn btn-primary m-2">
+                              <button
+                                className="btn btn-primary me-2"
+                                onClick={() => {
+                                  setIsModalOpen(true);
+                                  setUpdateName(cat.name);
+                                  setCatData(cat);
+                                }}
+                              >
                                 Update
                               </button>
-                              <button className="btn btn-danger">Delete</button>
+                              <button
+                                className="btn btn-danger"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handleDelete(cat._id);
+                                }}
+                              >
+                                Delete
+                              </button>
                             </td>
                           </tr>
                         </>
@@ -93,6 +150,23 @@ function CreateCategory() {
                 </table>
               </div>
             )}
+            <Modal
+              footer={null}
+              open={isModalOpen}
+              onOk={() => {
+                setIsModalOpen(false);
+              }}
+              onCancel={() => {
+                setIsModalOpen(false);
+              }}
+            >
+              <CategoryForm
+                button="UPDATE"
+                value={updateName}
+                setValue={setUpdateName}
+                handleSubmit={handleUpdate}
+              />
+            </Modal>
           </div>
         </div>
       </div>

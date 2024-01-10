@@ -1,6 +1,6 @@
 import React from "react";
 
-function NewCategory({ handleSubmit, setValue }) {
+function CategoryForm({ handleSubmit, value, setValue, button }) {
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -9,13 +9,14 @@ function NewCategory({ handleSubmit, setValue }) {
             type="text"
             className="form-control"
             id="name"
+            value={value}
             placeholder="Enter Category Name"
             onChange={(e) => {
               setValue(e.target.value);
             }}
           />
           <button type="submit" className="btn btn-primary mt-1">
-            Add
+            {button}
           </button>
         </div>
       </form>
@@ -23,4 +24,4 @@ function NewCategory({ handleSubmit, setValue }) {
   );
 }
 
-export default NewCategory;
+export default CategoryForm;
