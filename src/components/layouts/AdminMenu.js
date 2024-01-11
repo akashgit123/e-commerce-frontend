@@ -10,18 +10,21 @@ function AdminMenu() {
           <NavLink
             to="/dashboard/admin/create-category"
             className="list-group-item list-group-item-action"
+            key={"cc"}
           >
             Create Category
           </NavLink>
           <NavLink
             to="/dashboard/admin/create-product"
             className="list-group-item list-group-item-action"
+            key={"cp"}
           >
             Create Product
           </NavLink>
           <NavLink
             to="/dashboard/admin/users"
             className="list-group-item list-group-item-action"
+            key={"cu"}
           >
             Users
           </NavLink>
