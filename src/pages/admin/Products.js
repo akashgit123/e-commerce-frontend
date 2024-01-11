@@ -47,7 +47,7 @@ function Products() {
                       <Link
                         className="card-link"
                         key={item._id}
-                        to={`/dashboard/admin/product/${item.slug}`}
+                        to={`/dashboard/admin/update-product/${item.slug}`}
                       >
                         <div className="card" style={{ width: "18rem" }}>
                           <img
