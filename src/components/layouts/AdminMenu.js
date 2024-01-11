@@ -24,9 +24,16 @@ function AdminMenu() {
           <NavLink
             to="/dashboard/admin/users"
             className="list-group-item list-group-item-action"
-            key={"cu"}
+            key={"us"}
           >
             Users
+          </NavLink>
+          <NavLink
+            to="/dashboard/admin/products"
+            className="list-group-item list-group-item-action"
+            key={"pr"}
+          >
+            Products
           </NavLink>
         </div>
       </div>
