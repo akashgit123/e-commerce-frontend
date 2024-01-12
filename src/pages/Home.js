@@ -11,6 +11,9 @@ function Home() {
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
   const [radio, setRadio] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const getAllCategory = async () => {
     try {
@@ -56,23 +59,57 @@ function Home() {
 
   const fetchAllProducts = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(
-        `${process.env.REACT_APP_BACKEND_API}/api/v1/product/all-products`
+        `${process.env.REACT_APP_BACKEND_API}/api/v1/product/product-page/${page}`
       );
       if (response.data.success) {
-        setProducts(response.data.product);
+        setLoading(false);
+        setProducts(response.data.products);
       }
     } catch (error) {
+      setLoading(false);
       console.log(error);
       toast.error("Something Went Wrong");
     }
   };
 
+  const loadMoreProducts = async () => {
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_API}/api/v1/product/product-page/${page}`
+      );
+      if (response.data.success) {
+        setLoading(false);
+        setProducts([...products, ...response?.data?.products]);
+      }
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      toast.error("Something Went Wrong");
+    }
+  };
+
+  const gettotalProduct = async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_BACKEND_API}/api/v1/product/product-count`
+      );
+      if (response.data.success) {
+        setTotal(response.data.totalCount);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getAllCategory();
+    gettotalProduct();
     if (!checked.length || !radio.length) {
       fetchAllProducts();
-    }
+    } // eslint-disable-next-line
   }, [checked.length, radio.length]);
 
   useEffect(() => {
@@ -80,6 +117,12 @@ function Home() {
       filterProducts();
     } // eslint-disable-next-line
   }, [checked, radio]);
+
+  useEffect(() => {
+    if (page === 1) return;
+    loadMoreProducts();
+    // eslint-disable-next-line
+  }, [page]);
 
   return (
     <Layout>
@@ -144,7 +187,7 @@ function Home() {
                 {products.map((item) => {
                   return (
                     <div
-                      className="card"
+                      className="card mx-2 my-2"
                       key={item._id}
                       style={{ width: "18rem" }}
                     >
@@ -168,6 +211,19 @@ function Home() {
                   );
                 })}
               </>
+            )}
+          </div>
+          <div>
+            {products && products.length < total && (
+              <button
+                className="btn btn-info mt-2 mx-2"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setPage(page + 1);
+                }}
+              >
+                {loading ? "Loading..." : "Load More"}
+              </button>
             )}
           </div>
         </div>
