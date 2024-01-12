@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/auth";
 import { toast } from "react-toastify";
+import Search from "../forms/Search";
 
 function Header() {
   const navigate = useNavigate();
@@ -49,6 +50,7 @@ function Header() {
                 </NavLink>
               </li>
             </ul>
+            <Search />
             <div className="d-flex navbar-nav mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink className="nav-link" to="/cart">
