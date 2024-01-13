@@ -9,6 +9,21 @@ function CartPage() {
   const [cart, setCart] = useCart();
   //   const navigate = useNavigate();
 
+  const totalAmount = () => {
+    try {
+      let total = 0;
+      cart?.map((item) => {
+        return (total = total + item.price);
+      });
+      return total.toLocaleString("en-IN", {
+        style: "currency",
+        currency: "INR",
+      });
+    } catch (error) {
+      console.log("Total error ", error);
+    }
+  };
+
   const removeCartItem = (pid) => {
     try {
       let myCart = [...cart];
@@ -71,7 +86,12 @@ function CartPage() {
               );
             })}
           </div>
-          <div className="col-md-4">payments</div>
+          <div className="col-md-4">
+            <h2>Summary</h2>
+            <p>Total | Checkout | Payment </p>
+            <hr />
+            <h4>Total : {totalAmount()}</h4>
+          </div>
         </div>
       </div>
     </Layout>
