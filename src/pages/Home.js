@@ -6,8 +6,11 @@ import Checkbox from "antd/es/checkbox/Checkbox";
 import { Prices } from "../components/Prices";
 import { Radio } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../context/cart";
 
 function Home() {
+  const [cart, setCart] = useCart();
+
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -212,7 +215,18 @@ function Home() {
                         >
                           View
                         </button>
-                        <button className="btn btn-secondary">
+                        <button
+                          className="btn btn-secondary"
+                          onClick={(e) => {
+                            // e.preventDefault();
+                            setCart([...cart, item]);
+                            localStorage.setItem(
+                              "cart",
+                              JSON.stringify([...cart, item])
+                            );
+                            toast.success("Added to Cart");
+                          }}
+                        >
                           🛒Add to Cart
                         </button>
                       </div>

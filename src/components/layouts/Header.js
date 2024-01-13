@@ -4,10 +4,12 @@ import { useAuth } from "../../context/auth";
 import { toast } from "react-toastify";
 import Search from "../forms/Search";
 import useCategory from "../../hooks/useCategory";
+import { useCart } from "../../context/cart";
 
 function Header() {
   const navigate = useNavigate();
   const [auth, setAuth] = useAuth();
+  const [cart] = useCart();
   const categories = useCategory();
 
   const handleLogout = () => {
@@ -79,7 +81,7 @@ function Header() {
             <div className="d-flex navbar-nav mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink className="nav-link" to="/cart">
-                  🛒 Cart
+                  🛒 Cart {cart?.length ? `(${cart.length})` : " "}
                 </NavLink>
               </li>
               {auth.user ? (
