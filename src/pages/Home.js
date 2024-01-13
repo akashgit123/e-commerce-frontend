@@ -5,8 +5,10 @@ import { toast } from "react-toastify";
 import Checkbox from "antd/es/checkbox/Checkbox";
 import { Prices } from "../components/Prices";
 import { Radio } from "antd";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [checked, setChecked] = useState([]);
@@ -202,7 +204,14 @@ function Home() {
                           {item.description.substring(0, 30)}..
                         </p>
                         <p className="card-text">Rs.{item.price}</p>
-                        <button className="btn btn-primary me-2">View</button>
+                        <button
+                          className="btn btn-primary me-2"
+                          onClick={() => {
+                            navigate(`/product/${item.slug}`);
+                          }}
+                        >
+                          View
+                        </button>
                         <button className="btn btn-secondary">
                           🛒Add to Cart
                         </button>
