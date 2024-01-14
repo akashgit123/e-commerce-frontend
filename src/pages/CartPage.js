@@ -3,11 +3,12 @@ import Layout from "../components/layouts/Layout";
 import { useAuth } from "../context/auth";
 import { useCart } from "../context/cart";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function CartPage() {
   const [auth] = useAuth();
   const [cart, setCart] = useCart();
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const totalAmount = () => {
     try {
@@ -91,6 +92,45 @@ function CartPage() {
             <p>Total | Checkout | Payment </p>
             <hr />
             <h4>Total : {totalAmount()}</h4>
+            {auth?.user?.address ? (
+              <>
+                <div className="mb-3">
+                  <h5>Current Address :{auth.user.address}</h5>
+                  <button
+                    className="btn btn-warning"
+                    onClick={() => {
+                      navigate("/dashboard/user/profile");
+                    }}
+                  >
+                    Update Address
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="nb-3">
+                  {auth?.token ? (
+                    <button
+                      className="btn btn-warning"
+                      onClick={() => {
+                        navigate("/dashboard/user/profile");
+                      }}
+                    >
+                      Update Address
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-warning"
+                      onClick={() => {
+                        navigate("/login");
+                      }}
+                    >
+                      Please Login
+                    </button>
+                  )}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
