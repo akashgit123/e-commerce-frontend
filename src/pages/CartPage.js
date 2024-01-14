@@ -122,7 +122,7 @@ function CartPage() {
                     <button
                       className="btn btn-warning"
                       onClick={() => {
-                        navigate("/login");
+                        navigate("/login", { state: "/cart" });
                       }}
                     >
                       Please Login
