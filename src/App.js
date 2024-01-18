@@ -10,7 +10,6 @@ import { ToastContainer } from "react-toastify";
 import Login from "./pages/Auth/Login";
 import Dashboard from "./pages/user/Dashboard";
 import PrivateRoute from "./components/routes/Private";
-import ForgotPassword from "./pages/Auth/ForgotPassword";
 import AdminRoute from "./components/routes/AdminRoute";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import CreateCategory from "./pages/admin/CreateCategory";
@@ -26,6 +25,8 @@ import Categories from "./pages/Categories";
 import CategoryProduct from "./pages/CategoryProduct";
 import CartPage from "./pages/CartPage";
 import ManageOrders from "./pages/admin/ManageOrders";
+import UpdatePassword from "./pages/Auth/UpdatePassword";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
         <Route path="/cart" element={<CartPage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/update-password/:token" element={<UpdatePassword />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/product/:slug" element={<ProductDetails />} />
         <Route path="/categories" element={<Categories />} />
